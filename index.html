@@ -26,32 +26,33 @@
 	<div class="flash"></div>
 
 	<div class="page">
-		<!-- ローディング -->
-		<div class="loader-overlay">
-			<div class="loader-panel">
-				<div class="loader-inner">
-					<div class="loader-label">Now Loading...</div>
-					<div class="loader-bar-frame">
-						<div class="loader-bar-fill" id="loaderBarFill"></div>
-					</div>
-					<div class="loader-percent" id="loaderPercent">0%</div>
+	<!-- ローディング -->
+	<div class="loader-overlay">
+		<div class="loader-panel">
+			<div class="loader-inner">
+				<div class="loader-label">Now Loading...</div>
+				<div class="loader-bar-frame">
+					<div class="loader-bar-fill" id="loaderBarFill"></div>
 				</div>
+				<div class="loader-percent" id="loaderPercent">0%</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- 鯖落ち→復旧オーバーレイ -->
-		<div class="server-overlay" id="serverOverlay">
-			<div class="server-panel">
-				<div class="server-title">サーバ復旧中...</div>
-				<div>一時的にスレへの接続が切断された模様。</div>
-				<div>ログはなんとか無事っぽいので、復旧処理を走らせています。</div>
-				<div style="margin-top: 10px;" class="server-bar-frame">
-					<div class="server-bar-fill" id="serverBarFill"></div>
-				</div>
-				<div class="server-percent" id="serverPercent">0%</div>
-				<div class="server-sub">このバーがいっぱいになったら、そっとスレに戻ります...</div>
+	<!-- 鯖落ち→復旧オーバーレイ -->
+	<div class="server-overlay" id="serverOverlay">
+		<div class="server-panel">
+			<img src="coffee.gif" class="server-coffee">
+			<div class="server-title">サーバ復旧中...</div>
+			<div>一時的にスレへの接続が切断された模様。</div>
+			<div>ログはなんとか無事っぽいので、復旧処理を走らせています。</div>
+			<div style="margin-top: 10px;" class="server-bar-frame">
+				<div class="server-bar-fill" id="serverBarFill"></div>
 			</div>
+			<div class="server-percent" id="serverPercent">0%</div>
+			<div class="server-sub">このバーがいっぱいになったら、そっとスレに戻ります...</div>
 		</div>
+	</div>
 
 		<!-- オープニング（Enterカード） -->
 		<div class="start-overlay">
@@ -61,20 +62,27 @@
 			<div class="start-slice slice-top"></div>
 			<div class="start-slice slice-bottom"></div>
 
-			<div class="start-panel">
-				<div class="start-panel-inner">
-					<div class="start-label">Lif板＠年末挨拶スレ</div>
-					<div class="start-title">
-						<span>【今年もお世話になりました】</span><span>年末挨拶スレ</span>
-					</div>
-					<br>
-					<button class="start-button" id="startButton">
-						<span class="icon">▶</span>
-						<span>スレに入る</span>
-						<span class="shine"></span>
-					</button>
+		<div class="start-panel">
+			<div class="start-titlebar">
+				<div class="start-titlebar-buttons">
+					<span class="start-btn start-btn-minimize"></span>
+					<span class="start-btn start-btn-maximize"></span>
+					<span class="start-btn start-btn-close"></span>
 				</div>
 			</div>
+			<div class="start-panel-inner">
+				<div class="start-label">Lif板＠年末挨拶スレ</div>
+				<div class="start-title">
+					<span>【今年もお世話になりました】</span><span>年末挨拶スレ</span>
+				</div>
+				<br>
+				<button class="start-button" id="startButton">
+					<span class="icon">▶</span>
+					<span>スレに入る</span>
+					<span class="shine"></span>
+				</button>
+			</div>
+		</div>
 		</div>
 
 		<!-- メインカード -->

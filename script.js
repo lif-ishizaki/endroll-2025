@@ -358,36 +358,6 @@ window.addEventListener("load", () => {
 			ease: "power2.in"
 		}, ">-0.02");
 
-		tl.fromTo(sliceTop, {
-			opacity: 0,
-			xPercent: -30
-		}, {
-			opacity: 0.9,
-			xPercent: 40,
-			duration: 0.5,
-			ease: "power3.out"
-		}, "<0.02")
-		.to(sliceTop, {
-			opacity: 0,
-			duration: 0.3,
-			ease: "power1.in"
-		}, ">-0.1");
-
-		tl.fromTo(sliceBottom, {
-			opacity: 0,
-			xPercent: 30
-		}, {
-			opacity: 0.9,
-			xPercent: -30,
-			duration: 0.5,
-			ease: "power3.out"
-		}, "<0.06")
-		.to(sliceBottom, {
-			opacity: 0,
-			duration: 0.3,
-			ease: "power1.in"
-		}, ">-0.1");
-
 		tl.to(startPanel, {
 			y: -40,
 			scale: 0.9,
@@ -954,42 +924,42 @@ window.addEventListener("load", () => {
 			repeat: 1
 		});
 
-		// 文字の崩れ＆暗転アニメーション
-		gsap.to(lines, {
-			y: () => 160 + Math.random() * 200,
-			x: () => -140 + Math.random() * 280,
-			rotation: () => -50 + Math.random() * 100,
-			scale: () => 0.7 + Math.random() * 0.25,
-			opacity: 0,
-			stagger: 0.035,
-			duration: 1.2,
-			ease: "back.in(2.1)",
-			onComplete: () => {
-				if (postStatus) {
-					postStatus.textContent = "";
-				}
-
-				// テキストが全部落ちたあとに、メインカードが崩れ落ちる
-				const shellParts = [mainCard, cardAngleBack, cardOutline];
-
-				gsap.to(shellParts, {
-					y: 180,
-					rotation: () => -10 + Math.random() * 20,
-					scale: 0.9,
-					opacity: 0,
-					stagger: { each: 0.05, from: "center" },
-					duration: 0.8,
-					ease: "power2.in",
-					onComplete: () => {
-						// すべて崩壊しきってから暗転
-						setTimeout(() => {
-							startServerRecovery();
-						}, 500);
-					}
-				});
+	// 文字の崩れ＆暗転アニメーション
+	gsap.to(lines, {
+		y: () => 160 + Math.random() * 200,
+		x: () => -140 + Math.random() * 280,
+		rotation: () => -50 + Math.random() * 100,
+		scale: () => 0.7 + Math.random() * 0.25,
+		opacity: 0,
+		stagger: 0.035,
+		duration: 1.2,
+		ease: "back.in(2.1)",
+		onComplete: () => {
+			if (postStatus) {
+				postStatus.textContent = "";
 			}
-		});
-	}
+		}
+	});
+
+	const shellParts = [mainCard, cardAngleBack, cardOutline];
+
+	gsap.to(shellParts, {
+		y: 180,
+		rotation: () => -10 + Math.random() * 20,
+		scale: 0.9,
+		opacity: 0,
+		stagger: { each: 0.05, from: "center" },
+		duration: 0.8,
+		ease: "power2.in",
+		delay: 0.8,
+		onComplete: () => {
+			// すべて崩壊しきってから暗転
+			setTimeout(() => {
+				startServerRecovery();
+			}, 500);
+		}
+	});
+}
 
 	// 鯖落ちボタン
 	if (destroyPachiButton) {
