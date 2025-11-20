@@ -726,7 +726,7 @@ window.addEventListener("load", () => {
 
 		tl.to(serverBarFill, {
 			width: "100%",
-			duration: 3.0,
+			duration: 6.0,
 			ease: "power2.inOut"
 		});
 	}
