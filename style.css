@@ -15,6 +15,10 @@
 
 * {
 	box-sizing: border-box;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
 
 html,
@@ -262,6 +266,24 @@ canvas#bg-canvas {
 	pointer-events: none;
 	opacity: 0;
 	z-index: 15;
+}
+
+/* mo.jsで追加される要素がクリックをブロックしないようにする */
+.start-overlay [data-name="mojs-shape"],
+.start-overlay svg,
+.start-panel [data-name="mojs-shape"],
+.start-panel svg,
+.start-button [data-name="mojs-shape"],
+.start-button svg,
+.accent-tag [data-name="mojs-shape"],
+.accent-tag svg {
+	pointer-events: none !important;
+}
+
+/* .start-overlay自体は子要素（パネルやボタン）がクリックできるようにauto */
+.start-panel,
+.start-button {
+	pointer-events: auto !important;
 }
 
 .start-angles {
@@ -656,6 +678,10 @@ h1 {
 	font-size: 11px;
 	font-family: inherit;
 	resize: vertical;
+	user-select: text;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
 }
 
 .thread-form-actions {
