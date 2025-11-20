@@ -138,6 +138,9 @@ window.addEventListener("load", () => {
 	const sliceTop = document.querySelector(".start-slice.slice-top");
 	const sliceBottom = document.querySelector(".start-slice.slice-bottom");
 	const commentLayer = document.getElementById("commentLayer");
+	const startBtnMinimize = document.querySelector(".start-btn-minimize");
+	const startBtnMaximize = document.querySelector(".start-btn-maximize");
+	const startBtnClose = document.querySelector(".start-btn-close");
 
 	const serverOverlay = document.getElementById("serverOverlay");
 	const serverBarFill = document.getElementById("serverBarFill");
@@ -520,6 +523,87 @@ window.addEventListener("load", () => {
 	}
 
 	scheduleNextComment();
+
+	let isYukkuriAnimating = false;
+
+	function spawnYukkuriAA() {
+		if (!startPanel) return;
+		if (isYukkuriAnimating) return; // 連打防止
+
+		isYukkuriAnimating = true;
+
+		// ゆっくり霊夢のAA
+		const yukkuriAA = `　　　＿_　　 _____　　 ＿_____
+　　,´　_,, '-´￣￣｀-ゝ 、_ イ、
+　　'r ´　　　　　　　　　　ヽ、ﾝ、
+　,'＝=─-　　　 　 -─=＝',　i
+　i　ｲ　iゝ、ｲ人レ／_ルヽｲ i　|
+　ﾚﾘｲi (ﾋ_] 　　 　ﾋ_ﾝ ).| .|、i .||
+　　!Y!""　 ,＿__, 　 "" 「 !ﾉ i　|
+　　L.',.　 　ヽ _ﾝ　　　　L」 ﾉ| .|
+　　 | ||ヽ、　　　　　　 ,ｲ| ||ｲ| /
+　　 レ ル｀ ー--─ ´ルﾚ　ﾚ´`;
+
+		let overlay = startPanel.querySelector('.yukkuri-overlay');
+		if (!overlay) {
+			overlay = document.createElement('div');
+			overlay.className = 'yukkuri-overlay';
+			startPanel.appendChild(overlay);
+		}
+
+		const aaElement = document.createElement('pre');
+		aaElement.className = 'yukkuri-text';
+		aaElement.style.margin = '0';
+		aaElement.style.padding = '0';
+		aaElement.style.lineHeight = '1.2';
+		aaElement.textContent = yukkuriAA;
+
+		const panelHeight = startPanel.offsetHeight;
+		const randomTop = Math.random() * Math.max(panelHeight - 200, 50);
+		aaElement.style.top = randomTop + 'px';
+
+		overlay.appendChild(aaElement);
+
+		const width = aaElement.offsetWidth || 300;
+		const startX = startPanel.offsetWidth + width;
+		const endX = -width - 40;
+
+		gsap.fromTo(
+			aaElement,
+			{ x: startX, opacity: 0 },
+			{
+				x: endX,
+				opacity: 1,
+				duration: 3,
+				ease: "linear",
+				onComplete: () => {
+					aaElement.remove();
+					isYukkuriAnimating = false;
+				}
+			}
+		);
+	}
+
+	if (startBtnMinimize) {
+		startBtnMinimize.addEventListener("click", (e) => {
+			e.stopPropagation();
+			spawnYukkuriAA();
+		});
+	}
+
+	if (startBtnMaximize) {
+		startBtnMaximize.addEventListener("click", (e) => {
+			e.stopPropagation();
+			spawnYukkuriAA();
+		});
+	}
+
+	if (startBtnClose) {
+		startBtnClose.addEventListener("click", (e) => {
+			e.stopPropagation();
+			spawnYukkuriAA();
+		});
+	}
 
 	if (window.mojs && startButton) {
 		startButton.addEventListener("mouseenter", () => {

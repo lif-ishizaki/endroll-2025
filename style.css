@@ -486,6 +486,26 @@ canvas#bg-canvas {
 	pointer-events: none;
 }
 
+/* AA用 */
+.yukkuri-overlay {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: 5;
+}
+
+.yukkuri-text {
+	position: absolute;
+	white-space: pre;
+	font-family: "MS PGothic", "Noto Sans JP", monospace;
+	font-size: 12px;
+	line-height: 1.2;
+	color: #222222;
+	text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+	opacity: 0;
+}
+
 /* メインカード */
 .card-wrapper {
 	position: relative;
