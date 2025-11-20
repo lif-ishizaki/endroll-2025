@@ -139,6 +139,13 @@ canvas#bg-canvas {
 	pointer-events: none;
 }
 
+#mojsLoader {
+	width: 120px;
+	height: 120px;
+	margin: 4px auto 10px;
+	position: relative;
+}
+
 .loader-label {
 	font-size: 11px;
 	letter-spacing: 0.08em;
@@ -297,7 +304,7 @@ canvas#bg-canvas {
 	padding: 0;
 	border-radius: 8px;
 	background: #fffff8;
-	border: 2px solid var(--accent-soft);
+	border: 2px solid rgba(249, 245, 231, 0.92);
 	box-shadow:
 		0 10px 36px rgba(0, 0, 0, 0.25),
 		inset 0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -309,8 +316,9 @@ canvas#bg-canvas {
 .start-titlebar {
 	position: relative;
 	height: 32px;
-	background: linear-gradient(180deg, var(--accent), var(--accent-soft));
-	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	background: linear-gradient(180deg, rgba(249, 245, 231, 0.92), rgba(241, 236, 214, 0.88));
+	backdrop-filter: blur(8px);
+	border-bottom: 1px solid rgba(200, 200, 170, 0.35);
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;

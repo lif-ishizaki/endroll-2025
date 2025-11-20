@@ -46,6 +46,85 @@ window.addEventListener("load", () => {
 	const loaderBarFill = document.getElementById("loaderBarFill");
 	const loaderPercent = document.getElementById("loaderPercent");
 
+	// 幾何学ローディング＋アクセントタグのハロー
+	if (window.mojs) {
+		const loaderContainer = document.getElementById("mojsLoader");
+		if (loaderContainer) {
+			const spinner = new mojs.Shape({
+				parent: "#mojsLoader",
+				shape: "circle",
+				stroke: "#009944",
+				strokeDasharray: "125, 125",
+				strokeDashoffset: { "0": "-125" },
+				strokeWidth: 3,
+				fill: "none",
+				left: "50%",
+				top: "50%",
+				radius: 26,
+				isShowStart: true,
+				duration: 2000,
+				easing: "cubic.out",
+				repeat: 999
+			});
+
+			const polygon = new mojs.Shape({
+				parent: "#mojsLoader",
+				shape: "polygon",
+				points: 6,
+				fill: "none",
+				stroke: "#666633",
+				strokeWidth: 2,
+				radius: { 10: 34 },
+				left: "50%",
+				top: "50%",
+				angle: { 0: 90 },
+				duration: 1800,
+				isShowStart: true,
+				easing: "quad.inOut",
+				isYoyo: true,
+				repeat: 999
+			});
+
+			const dot = new mojs.Shape({
+				parent: "#mojsLoader",
+				shape: "circle",
+				fill: "#cc3300",
+				radius: { 0: 6 },
+				left: "50%",
+				top: "50%",
+				x: { 0: 26 },
+				y: { 0: -18 },
+				duration: 1200,
+				easing: "sin.inOut",
+				isYoyo: true,
+				repeat: 999
+			});
+
+			spinner.play();
+			polygon.play();
+			dot.play();
+		}
+
+		// メインカード右上の YEAR END ラベルにハローを常時かける
+		const accentTagEl = document.querySelector(".accent-tag");
+		if (accentTagEl) {
+			new mojs.Shape({
+				parent: ".accent-tag",
+				shape: "circle",
+				fill: "none",
+				stroke: "rgba(153, 153, 102, 0.8)",
+				strokeWidth: 2,
+				radius: { 14: 26 },
+				opacity: { 0.7: 0 },
+				left: "50%",
+				top: "50%",
+				duration: 1600,
+				repeat: 999,
+				easing: "quad.out"
+			}).play();
+		}
+	}
+
 	const startOverlay = document.querySelector(".start-overlay");
 	const anglesInner = document.querySelector(".start-angles-inner");
 	const startPanel = document.querySelector(".start-panel");
@@ -118,6 +197,66 @@ window.addEventListener("load", () => {
 	});
 	gsap.set([sliceTop, sliceBottom], { opacity: 0 });
 
+	if (window.mojs && loaderOverlay) {
+		gsap.set(loaderOverlay, { scale: 0.7, opacity: 0 });
+
+		const loadBurst1 = new mojs.Burst({
+			parent: loaderOverlay,
+			radius: { 0: 150 },
+			count: 8,
+			angle: { 0: 360 },
+			children: {
+				shape: 'circle',
+				fill: ['#009944', '#66bb66', '#666633'],
+				radius: { 6: 0 },
+				duration: 800,
+				easing: 'cubic.out'
+			}
+		});
+
+		const loadBurst2 = new mojs.Burst({
+			parent: loaderOverlay,
+			radius: { 0: 120 },
+			count: 6,
+			angle: { 0: 360 },
+			children: {
+				shape: 'polygon',
+				points: 5,
+				fill: 'none',
+				stroke: ['#cc3300', '#999966'],
+				strokeWidth: 2,
+				radius: { 10: 0 },
+				duration: 700,
+				easing: 'quad.out'
+			}
+		});
+
+		const loadRing = new mojs.Shape({
+			parent: loaderOverlay,
+			shape: 'circle',
+			fill: 'none',
+			stroke: '#009944',
+			strokeWidth: { 3: 0 },
+			radius: { 0: 180 },
+			opacity: { 0.8: 0 },
+			duration: 900,
+			easing: 'cubic.out'
+		});
+
+		// カード表示アニメーション
+		gsap.to(loaderOverlay, {
+			scale: 1,
+			opacity: 1,
+			duration: 0.6,
+			ease: 'back.out(1.7)',
+			onStart: () => {
+				loadBurst1.play();
+				loadBurst2.play();
+				loadRing.play();
+			}
+		});
+	}
+
 	// ローディングバー
 	const loaderTl = gsap.timeline({
 		onComplete: () => {
@@ -141,9 +280,27 @@ window.addEventListener("load", () => {
 		)
 		.to(loaderOverlay, {
 			opacity: 0,
+			scale: 0.85,
 			duration: 0.5,
 			ease: "power2.out",
 			delay: 0.15,
+			onStart: () => {
+				if (window.mojs) {
+					const exitRipple = new mojs.Shape({
+						parent: loaderOverlay,
+						shape: 'circle',
+						fill: 'none',
+						stroke: '#009944',
+						strokeWidth: { 2: 0 },
+						radius: { 60: 180 },
+						opacity: { 0.5: 0 },
+						duration: 700,
+						easing: 'cubic.out'
+					});
+
+					exitRipple.play();
+				}
+			},
 			onComplete: () => {
 				loaderOverlay.style.display = "none";
 			}
@@ -151,8 +308,40 @@ window.addEventListener("load", () => {
 		.to(startOverlay, {
 			opacity: 1,
 			duration: 0.6,
-			ease: "power2.out"
-		}, "-=0.15");
+			ease: "power2.out",
+			onStart: () => {
+				if (window.mojs && startPanel) {
+					const enterBurst = new mojs.Burst({
+						parent: startOverlay,
+						radius: { 0: 120 },
+						count: 6,
+						angle: { 0: 360 },
+						children: {
+							shape: 'circle',
+							fill: ['#009944', '#666633'],
+							radius: { 5: 0 },
+							duration: 800,
+							easing: 'cubic.out'
+						}
+					});
+
+					const enterRing = new mojs.Shape({
+						parent: startOverlay,
+						shape: 'circle',
+						fill: 'none',
+						stroke: '#009944',
+						strokeWidth: { 2: 0 },
+						radius: { 40: 140 },
+						opacity: { 0.4: 0 },
+						duration: 900,
+						easing: 'quad.out'
+					});
+
+					enterBurst.play();
+					enterRing.play();
+				}
+			}
+		}, "-=0.3");
 
 	// Enterカードアニメーション
 	gsap.to(anglesInner, {
@@ -331,6 +520,25 @@ window.addEventListener("load", () => {
 	}
 
 	scheduleNextComment();
+
+	if (window.mojs && startButton) {
+		startButton.addEventListener("mouseenter", () => {
+
+			const hoverRing = new mojs.Shape({
+				parent: startButton,
+				shape: 'circle',
+				fill: 'none',
+				stroke: '#009944',
+				strokeWidth: { 2: 0 },
+				radius: { 20: 50 },
+				opacity: { 0.6: 0 },
+				duration: 500,
+				easing: 'quad.out'
+			});
+
+			hoverRing.play();
+		});
+	}
 
 	// Enterボタンクリックで本編表示
 	startButton.addEventListener("click", () => {
