@@ -129,7 +129,6 @@ window.addEventListener("load", () => {
 	const anglesInner = document.querySelector(".start-angles-inner");
 	const startPanel = document.querySelector(".start-panel");
 	const startButton = document.getElementById("startButton");
-	const buttonShine = document.querySelector(".start-button .shine");
 	const mainCard = document.getElementById("mainCard");
 	const shards = document.querySelectorAll(".shard");
 	const cardOutline = document.querySelector(".card-outline");
@@ -375,15 +374,6 @@ window.addEventListener("load", () => {
 		ease: "sine.inOut",
 		yoyo: true,
 		repeat: -1
-	});
-
-	gsap.to(buttonShine, {
-		xPercent: 260,
-		duration: 2.2,
-		ease: "power2.inOut",
-		repeat: -1,
-		delay: 0.4,
-		repeatDelay: 1.8
 	});
 
 	// シャード常時アニメ

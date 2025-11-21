@@ -475,17 +475,6 @@ canvas#bg-canvas {
 	color: #006633;
 }
 
-.start-button .shine {
-	position: absolute;
-	top: 0;
-	left: -40%;
-	width: 40%;
-	height: 100%;
-	background: linear-gradient(120deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-	transform: translateX(-100%) skewX(-16deg);
-	pointer-events: none;
-}
-
 /* AA用 */
 .yukkuri-overlay {
 	position: absolute;
