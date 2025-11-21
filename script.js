@@ -178,7 +178,6 @@ window.addEventListener("load", () => {
 		"さっき500吐いてたの見たやついる？",
 		"ログ飛んでないの奇跡では",
 		"復旧した瞬間にこのスレ見に来た",
-		"さっきの沈黙、逆に年末感あったな",
 		"今年もサーバーまで働きすぎじゃろ"
 	];
 
@@ -608,20 +607,20 @@ window.addEventListener("load", () => {
 	if (window.mojs && startButton) {
 		startButton.addEventListener("mouseenter", () => {
 
-			const hoverRing = new mojs.Shape({
-				parent: startButton,
-				shape: 'circle',
-				fill: 'none',
-				stroke: '#009944',
-				strokeWidth: { 2: 0 },
-				radius: { 20: 50 },
-				opacity: { 0.6: 0 },
-				duration: 500,
-				easing: 'quad.out'
-			});
+				const hoverRing = new mojs.Shape({
+					parent: startButton,
+					shape: 'circle',
+					fill: 'none',
+					stroke: '#009944',
+					strokeWidth: { 2: 0 },
+					radius: { 20: 50 },
+					opacity: { 0.6: 0 },
+					duration: 500,
+					easing: 'quad.out'
+				});
 
-			hoverRing.play();
-		});
+				hoverRing.play();
+			});
 	}
 
 	// Enterボタンクリックで本編表示
@@ -667,10 +666,131 @@ window.addEventListener("load", () => {
 			opacity: 0,
 			duration: 0.4,
 			ease: "power1.out",
+			onStart: () => {
+				if (window.mojs) {
+
+					const transitionBurst1 = new mojs.Burst({
+						left: '50%',
+						top: '50%',
+						radius: { 0: 250 },
+						count: 12,
+						angle: { 0: 360 },
+						children: {
+							shape: 'circle',
+							fill: ['#009944', '#66bb66', '#666633', '#999966'],
+							radius: { 8: 0 },
+							duration: 1000,
+							easing: 'cubic.out'
+						}
+					});
+
+					const transitionBurst2 = new mojs.Burst({
+						left: '50%',
+						top: '50%',
+						radius: { 0: 180 },
+						count: 8,
+						angle: { 0: 360 },
+						children: {
+							shape: 'circle',
+							fill: ['#cc3300', '#ff6b6b', '#f5d76e'],
+							radius: { 6: 0 },
+							duration: 900,
+							delay: 100,
+							easing: 'quad.out'
+						}
+					});
+
+					const transitionBurst3 = new mojs.Burst({
+						left: '50%',
+						top: '50%',
+						radius: { 0: 200 },
+						count: 6,
+						angle: { 0: 360 },
+						children: {
+							shape: 'polygon',
+							points: 5,
+							fill: 'none',
+							stroke: ['#009944', '#666633'],
+							strokeWidth: 2,
+							radius: { 12: 0 },
+							duration: 850,
+							delay: 150,
+							easing: 'cubic.out'
+						}
+					});
+
+					const transitionRing1 = new mojs.Shape({
+						left: '50%',
+						top: '50%',
+						shape: 'circle',
+						fill: 'none',
+						stroke: '#009944',
+						strokeWidth: { 4: 0 },
+						radius: { 0: 300 },
+						opacity: { 0.8: 0 },
+						duration: 1100,
+						easing: 'cubic.out'
+						});
+
+					const transitionRing2 = new mojs.Shape({
+						left: '50%',
+						top: '50%',
+						shape: 'circle',
+						fill: 'none',
+						stroke: '#666633',
+						strokeWidth: { 3: 0 },
+						radius: { 0: 220 },
+						opacity: { 0.6: 0 },
+						duration: 950,
+						delay: 100,
+						easing: 'quad.out'
+					});
+
+					const transitionRing3 = new mojs.Shape({
+						left: '50%',
+						top: '50%',
+						shape: 'circle',
+						fill: 'none',
+						stroke: '#cc3300',
+						strokeWidth: { 2: 0 },
+						radius: { 0: 150 },
+						opacity: { 0.5: 0 },
+						duration: 800,
+						delay: 200,
+						easing: 'quad.out'
+					});
+
+					const transitionHexagon = new mojs.Shape({
+						left: '50%',
+						top: '50%',
+						shape: 'polygon',
+						points: 6,
+						fill: 'none',
+						stroke: '#999966',
+						strokeWidth: { 3: 0 },
+						radius: { 20: 200 },
+						angle: { 0: 180 },
+						opacity: { 0.7: 0 },
+						duration: 1000,
+						delay: 50,
+						easing: 'cubic.out'
+					});
+
+					transitionBurst1.play();
+					transitionBurst2.play();
+					transitionBurst3.play();
+					transitionRing1.play();
+					transitionRing2.play();
+					transitionRing3.play();
+					transitionHexagon.play();
+				}
+			},
 			onComplete: () => {
 				startOverlay.style.display = "none";
 			}
 		}, ">-0.2");
+
+		tl.to({}, { duration: 0.8 }); /*メインカード表示前に間を持たせる*/
 
 		tl.to([cardAngleBack, cardOutline], {
 			opacity: 1,
